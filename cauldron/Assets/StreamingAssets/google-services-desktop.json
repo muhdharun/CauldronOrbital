@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "592095018633",
+    "firebase_url": "https://cauldron-493c1.firebaseio.com",
+    "project_id": "cauldron-493c1",
+    "storage_bucket": "cauldron-493c1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:592095018633:android:63c2b7d7c22dd6b5",
+        "android_client_info": {
+          "package_name": "com.notapollo11yet.cauldron"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "592095018633-oljqbiohlc6p79gqfvs23sa6oviq4ur0.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "592095018633-oljqbiohlc6p79gqfvs23sa6oviq4ur0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6Qv3cCgqrSzZth_GDICkK2xtKWWGQOw0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
