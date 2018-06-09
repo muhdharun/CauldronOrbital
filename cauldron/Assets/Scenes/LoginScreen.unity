@@ -1391,8 +1391,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1418427615}
-        m_MethodName: SignOutButtonPressed
+      - m_Target: {fileID: 1058866989}
+        m_MethodName: SignOut
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
