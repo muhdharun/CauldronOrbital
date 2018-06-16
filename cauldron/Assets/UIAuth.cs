@@ -49,11 +49,6 @@ public class UIAuth : MonoBehaviour {
         _Auth.StateChanged += AuthStateChanged;
     }
 
-    // Update is called once per frame
-    void Update () {
-		
-	}
-
     private void OnDestroy()
     {
         _Auth.StateChanged -= AuthStateChanged;
@@ -125,6 +120,7 @@ public class UIAuth : MonoBehaviour {
         else if (authTask.IsCompleted)
         {
             _DebugLog.text = "Firebase : Login completed.\n" + "Welcome " + _Email.text;
+            MainMenu.SignedInYet = true;
             SceneManager.LoadSceneAsync("titlescreen");
         }
     }
@@ -139,12 +135,16 @@ public class UIAuth : MonoBehaviour {
                 Debug.Log("Current user is" + auth.CurrentUser);
                 _DebugLog.text = "Logged in as Guest";
                 SceneManager.LoadSceneAsync("titlescreen");
+                MainMenu.SignedInYet = true;
             });
     }
 
     public void SignOut()
     {
+        
         _Auth.SignOut();
+        if (_User == null) _DebugLog.text = "Signed out successfully";
+        MainMenu.SignedInYet = false;
     }
 
 }
