@@ -21,9 +21,12 @@ public class RecipeGeneration : MonoBehaviour {
     // total_score = number of ingredients to 'catch up' (the lower the better) - votes
     //top 3 shown + show more option 
 
+    public GameObject show_button;
+
     public static string MealType; //from TypeOfMealPage script
     int userIngs; //number of user's ingredients (from IngredientSelection)
     bool nothing = false;
+    //bool is_done = false; //finish generating?
 
     DependencyStatus dependencyStatus = DependencyStatus.UnavailableOther;
 
@@ -52,6 +55,7 @@ public class RecipeGeneration : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        show_button.SetActive(false);
         MealType = TypeOfMealPage.Meal_Type;
         userIngs = IngredientSelection.UserIngredients.Count;
         FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task => {
@@ -86,7 +90,7 @@ public class RecipeGeneration : MonoBehaviour {
             foreach (DataSnapshot recipe in snapshot.Children)
             {
                 string line = ""; //to concatenate all in the ingredients of each recipe
-                int tmp = userIngs;
+                //int tmp = userIngs;
                 int data_ings = (int)recipe.Child("Ingredients").ChildrenCount; //no. ingredients for each recipe
                 int score = data_ings;
                 DataSnapshot type = recipe.Child("Type"); //internet or original recipe?
@@ -128,25 +132,32 @@ public class RecipeGeneration : MonoBehaviour {
                     }*/
                 }
                 if (Score.Count == 0) nothing = true;
+                show_button.SetActive(true);
+                //is_done = true;
+
             }
         });
           
     }
-    public void GenerateButtonPressed()
+    public void ProcessButtonPressed()
+    {
+        Generate_Recipes();
+        //if (is_done) show_button.SetActive(true);
+    }
+
+    public void ShowButtonPressed()
     {
         string selection = "You selected: " + string.Join(" , ", IngredientSelection.UserIngredients.ToArray());
         UsersSelection.text = selection;
-        //Debug.Log("Generating...");
-        Generate_Recipes();
         int i = 0;
         if (nothing == true)
         {
             t1.text = "no recipes found";
             return;
         }
-        foreach (KeyValuePair<string,int> recipe in Score.OrderBy(key => key.Value))
+        foreach (KeyValuePair<string, int> recipe in Score.OrderBy(key => key.Value))
         {
-            
+
             if (i == 3) break;
             if (i == 0)
             {
@@ -171,6 +182,7 @@ public class RecipeGeneration : MonoBehaviour {
             }
         }
     }
+
     public void ReturntotitlePage()
     {
         SceneManager.LoadSceneAsync("titlescreen");
