@@ -34,6 +34,11 @@ public class MainMenu : MonoBehaviour {
         {
             _LoginStatus2.text = "Please login with acc or as guest first";
         }
+
+        else
+        {
+            SceneManager.LoadSceneAsync("ContributePage");
+        }
     }
 
 }
