@@ -4,6 +4,10 @@ using UnityEngine.UI;
 using System;
 using System.Threading.Tasks;
 using UnityEngine.SceneManagement;
+using Firebase;
+using Firebase.Unity.Editor;
+using System.Text.RegularExpressions;
+using Firebase.Database;
 
 public class UIAuth : MonoBehaviour {
 
@@ -18,6 +22,8 @@ public class UIAuth : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
+        FirebaseApp.DefaultInstance.SetEditorDatabaseUrl("https://cauldron-493c1.firebaseio.com/");
+        DatabaseReference reference = FirebaseDatabase.DefaultInstance.RootReference;
         _DependencyStatus = Firebase.FirebaseApp.CheckDependencies();
 
         if (_DependencyStatus != Firebase.DependencyStatus.Available)
@@ -147,4 +153,12 @@ public class UIAuth : MonoBehaviour {
         MainMenu.SignedInYet = false;
     }
 
+    public void AddUser()
+    {
+        string OriEmail = _Email.text;
+        string editedEmail = OriEmail.Replace(".", "").Replace("@", "").Replace("-", "").Replace("!", "")
+            .Replace("#", "").Replace("$", "");
+        FirebaseDatabase dbRef = FirebaseDatabase.DefaultInstance;
+        dbRef.GetReference("Users").Child(editedEmail).SetValueAsync(OriEmail);
+    }
 }

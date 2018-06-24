@@ -5,7 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class TypeOfMealPage : MonoBehaviour {
 
-    string Meal_Type;
+    public static string Meal_Type;
+
+    private void Start()
+    {
+        Meal_Type = "";
+    }
 
     public void MainDishSelected()
     {
