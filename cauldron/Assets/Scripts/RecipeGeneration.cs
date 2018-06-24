@@ -21,20 +21,19 @@ public class RecipeGeneration : MonoBehaviour {
     // total_score = number of ingredients to 'catch up' (the lower the better) - votes
     //top 3 shown + show more option 
 
-    public GameObject show_button;
+    
 
     public static string MealType; //from TypeOfMealPage script
-    int userIngs; //number of user's ingredients (from IngredientSelection)
+    //int userIngs; //number of user's ingredients (from IngredientSelection)
     bool nothing = false;
-    //bool is_done = false; //finish generating?
 
     DependencyStatus dependencyStatus = DependencyStatus.UnavailableOther;
 
     Dictionary<string, int> Score = new Dictionary<string, int>();
-    //Dictionary<string, string> Recipe_type = new Dictionary<string, string>();
-    //Dictionary<string, string> Steps = new Dictionary<string, string>();
-    Dictionary<string, string[]> results = new Dictionary<string, string[]>(); 
+    Dictionary<string, string[]> results = new Dictionary<string, string[]>();
     // index 0: Recipe_type,1: Ingredients 2: Steps/Website  
+
+    public GameObject show_button;
 
     //titles of top 3 recipes
     public Text t1;
@@ -51,13 +50,17 @@ public class RecipeGeneration : MonoBehaviour {
     public Text r2;
     public Text r3;
 
+    //is it from the internet?
+    bool int1 = false;
+    bool int2 = false;
+    bool int3 = false;
+
     public Text UsersSelection;
 
     // Use this for initialization
     void Start () {
         show_button.SetActive(false);
-        MealType = TypeOfMealPage.Meal_Type;
-        userIngs = IngredientSelection.UserIngredients.Count;
+        MealType = TypeOfMealPage.Meal_Type;       
         FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task => {
             dependencyStatus = task.Result;
             if (dependencyStatus == DependencyStatus.Available)
@@ -89,52 +92,27 @@ public class RecipeGeneration : MonoBehaviour {
             DataSnapshot snapshot = task.Result;
             foreach (DataSnapshot recipe in snapshot.Children)
             {
-                string line = ""; //to concatenate all in the ingredients of each recipe
-                //int tmp = userIngs;
+                string line = ""; //to concatenate all in the ingredients of each recipe               
                 int data_ings = (int)recipe.Child("Ingredients").ChildrenCount; //no. ingredients for each recipe
                 int score = data_ings;
                 DataSnapshot type = recipe.Child("Type"); //internet or original recipe?
-                string Type = (string)type.Value; //convert type to string
-                //if (tmp >= data_ings) //loop through data recipe's ingredients instead
-                
-                    DataSnapshot ingredients = recipe.Child("Ingredients");
-                    foreach (DataSnapshot ingredient in ingredients.Children)
+                string Type = (string)type.Value; //convert type to string                              
+                DataSnapshot ingredients = recipe.Child("Ingredients");
+                foreach (DataSnapshot ingredient in ingredients.Children)
+                {
+                    string ing = (string)ingredient.Value;
+                    line += ing + " ";
+                    if (IngredientSelection.UserIngredients.Contains(ing))
                     {
-                        string ing = (string)ingredient.Value;
-                        line += ing + " ";
-                        if (IngredientSelection.UserIngredients.Contains(ing))
-                        {
-                            score--; // this means the user has this ingredient, need to worry about 1 less ingredient
-                        }
+                        score--; // this means the user has this ingredient, need to worry about 1 less ingredient
                     }
-                    if (score == data_ings) continue; //that means user has no ingredient for this particular recipe
-                    Score.Add(recipe.Key, score); //recipe: score
-                    results.Add(recipe.Key, new string[]{Type,line,(string)recipe.Child("Steps").Value});
-                    
-                        //Recipe_type.Add(recipe.Key, Type); // recipe : type
-                        //Steps.Add(recipe.Key, (string)recipe.Child("Steps").Value);
-                    
-
-                    /*else if (tmp <= data_ings) //loop through user's ingredient instead
-                        {
-                        List<string> dataIng = (List<string>)recipe.Child("Ingredients").Value;
-                        foreach (string ingredient in IngredientSelection.UserIngredients)
-                        {
-                            if (dataIng.Contains(ingredient))
-                            {
-                                score--; // this means the user has this ingredient, need to worry about 1 less ingredient
-                                }
-                        }
-                        if (score == data_ings) continue;
-                        Results.Add(recipe.Key, score); //recipe: score
-                        Recipe_type.Add(recipe.Key, Type);
-                        Steps.Add(recipe.Key, (string)recipe.Child("Steps").Value); 
-                    }*/
+                }
+                if (score == data_ings) continue; //that means user has no ingredient for this particular recipe
+                Score.Add(recipe.Key, score); //recipe: score
+                results.Add(recipe.Key, new string[]{Type,line,(string)recipe.Child("Steps").Value});       
                 }
                 if (Score.Count == 0) nothing = true;
                 show_button.SetActive(true);
-                //is_done = true;
-
             }
         });
           
@@ -161,6 +139,7 @@ public class RecipeGeneration : MonoBehaviour {
             if (i == 3) break;
             if (i == 0)
             {
+                int1 = results[recipe.Key][0] == "internet" ? true : false;
                 t1.text = recipe.Key;
                 i1.text = results[recipe.Key][1];
                 r1.text = results[recipe.Key][2];
@@ -168,6 +147,7 @@ public class RecipeGeneration : MonoBehaviour {
             }
             else if (i == 1)
             {
+                int2 = results[recipe.Key][0] == "internet" ? true : false;
                 t2.text = recipe.Key;
                 i2.text = results[recipe.Key][1];
                 r2.text = results[recipe.Key][2];
@@ -175,11 +155,35 @@ public class RecipeGeneration : MonoBehaviour {
             }
             else if (i == 2)
             {
+                int3 = results[recipe.Key][0] == "internet" ? true : false;
                 t3.text = recipe.Key;
                 i3.text = results[recipe.Key][1];
                 r3.text = results[recipe.Key][2];
                 i++;
             }
+        }
+    }
+    public void Click_one()
+    {
+        if (int1 == true)
+        {
+            Application.OpenURL(r1.text);
+        }
+    }
+
+    public void Click_two()
+    {
+        if (int2 == true)
+        {
+            Application.OpenURL(r2.text);
+        }
+    }
+
+    public void Click_three()
+    {
+        if (int3 == true)
+        {
+            Application.OpenURL(r3.text);
         }
     }
 
