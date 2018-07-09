@@ -1,7 +1,12 @@
 # CauldronOrbital
 
-Status of project as of 2/6/18:
+Status of project as of 9/7/18:
 
-- Creating a new account works
-- Signing in with existing account works
-- Can also sign in as guest
+Things that still has to be implemented:
+
+- Contributing dessert dishes
+- "Show more" function
+- Dealing with original instead of internet recipes
+- "Saved" function
+- Integrating app with cool animations and shit
+- Making the checkboxes bigger so that people with fat fingers can this enjoy this too lol
