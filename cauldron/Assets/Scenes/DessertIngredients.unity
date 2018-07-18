@@ -145,8 +145,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -328.35898, y: 518.02655}
-  m_SizeDelta: {x: 423.1, y: 52.5}
+  m_AnchoredPosition: {x: -171.6, y: 522.9}
+  m_SizeDelta: {x: 736.6, y: 42.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &18489194
 MonoBehaviour:
@@ -167,7 +167,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: 'Select Base (Select a max of 2):'
+  m_text: 'Select Base (you can select none or more than 1):'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 808aa8f1ab804104aa7d0c337a6c1481, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 808aa8f1ab804104aa7d0c337a6c1481, type: 2}
@@ -235,10 +235,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 18489194}
-    characterCount: 32
+    characterCount: 49
     spriteCount: 0
-    spaceCount: 6
-    wordCount: 7
+    spaceCount: 9
+    wordCount: 10
     linkCount: 0
     lineCount: 1
     pageCount: 1
@@ -4846,8 +4846,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -201.95898, y: 45.2265}
-  m_SizeDelta: {x: 777.5, y: 1295.5999}
+  m_AnchoredPosition: {x: -192.1, y: 55.1}
+  m_SizeDelta: {x: 905.8, y: 1404.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &890062731
 MonoBehaviour:
@@ -7396,8 +7396,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -201.95898, y: 45.2265}
-  m_SizeDelta: {x: 777.5, y: 1295.5999}
+  m_AnchoredPosition: {x: -206.1, y: 45.2}
+  m_SizeDelta: {x: 892.3, y: 1418.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1218324935
 MonoBehaviour:
@@ -9020,8 +9020,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -201.95898, y: 45.2265}
-  m_SizeDelta: {x: 777.5, y: 1295.5999}
+  m_AnchoredPosition: {x: -198.3, y: 51.2}
+  m_SizeDelta: {x: 878.1, y: 1376.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1359648244
 MonoBehaviour:
@@ -10041,8 +10041,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -328.35898, y: 518.02655}
-  m_SizeDelta: {x: 423.1, y: 52.5}
+  m_AnchoredPosition: {x: -213.8, y: 517.2}
+  m_SizeDelta: {x: 652.1, y: 54.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1469514423
 MonoBehaviour:
@@ -10063,7 +10063,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: 'Select Fruits (Select a max of 3):'
+  m_text: 'Select Fruits (you can select none or more than 1):'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 808aa8f1ab804104aa7d0c337a6c1481, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 808aa8f1ab804104aa7d0c337a6c1481, type: 2}
@@ -10131,10 +10131,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1469514423}
-    characterCount: 34
+    characterCount: 51
     spriteCount: 0
-    spaceCount: 6
-    wordCount: 7
+    spaceCount: 9
+    wordCount: 10
     linkCount: 0
     lineCount: 1
     pageCount: 1
@@ -11418,8 +11418,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -328.35898, y: 518.02655}
-  m_SizeDelta: {x: 423.1, y: 52.5}
+  m_AnchoredPosition: {x: -209.8, y: 514.8}
+  m_SizeDelta: {x: 660.3, y: 59}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1656707523
 MonoBehaviour:
@@ -11440,7 +11440,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: 'Select Spread (Select a max of 2, mainly for breakfast dishes):'
+  m_text: 'Select Spread (you can select none or more than 1):'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 808aa8f1ab804104aa7d0c337a6c1481, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 808aa8f1ab804104aa7d0c337a6c1481, type: 2}
@@ -11485,7 +11485,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: 34
+  m_firstOverflowCharacterIndex: -1
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -11508,12 +11508,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1656707523}
-    characterCount: 63
+    characterCount: 51
     spriteCount: 0
-    spaceCount: 10
-    wordCount: 11
+    spaceCount: 9
+    wordCount: 10
     linkCount: 0
-    lineCount: 2
+    lineCount: 1
     pageCount: 1
     materialCount: 1
   m_havePropertiesChanged: 0
@@ -12937,8 +12937,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -201.95898, y: 45.2265}
-  m_SizeDelta: {x: 777.5, y: 1295.5999}
+  m_AnchoredPosition: {x: -199.5, y: 42.7}
+  m_SizeDelta: {x: 950.1, y: 1418.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1939379334
 MonoBehaviour:
@@ -13019,12 +13019,12 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 768, y: 1280}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96

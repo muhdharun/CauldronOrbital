@@ -18,10 +18,13 @@ public class UIAuth : MonoBehaviour {
     Firebase.DependencyStatus _DependencyStatus = Firebase.DependencyStatus.UnavailableOther;
     Firebase.Auth.FirebaseAuth _Auth;
     Firebase.Auth.FirebaseUser _User;
+    public static string User;
+    public static string editedEmail;
 
     // Use this for initialization
     void Start ()
     {
+        User = "";
         FirebaseApp.DefaultInstance.SetEditorDatabaseUrl("https://cauldron-493c1.firebaseio.com/");
         DatabaseReference reference = FirebaseDatabase.DefaultInstance.RootReference;
         _DependencyStatus = Firebase.FirebaseApp.CheckDependencies();
@@ -100,6 +103,9 @@ public class UIAuth : MonoBehaviour {
         else if (authTask.IsCompleted)
         {
             _DebugLog.text = "Firebase : User Creation completed.\n" + "Welcome " + _Email.text;
+            MainMenu.SignedInYet = true;
+            MainMenu.isGuest = false;
+            User = _Email.text;           
             SceneManager.LoadSceneAsync("titlescreen");
         }
     }
@@ -127,6 +133,13 @@ public class UIAuth : MonoBehaviour {
         {
             _DebugLog.text = "Firebase : Login completed.\n" + "Welcome " + _Email.text;
             MainMenu.SignedInYet = true;
+            MainMenu.isGuest = false;
+            User = _Email.text;
+            string OriEmail = _Email.text;
+            editedEmail = OriEmail.Replace(".", "").Replace("@", "").Replace("-", "").Replace("!", "")
+                .Replace("#", "").Replace("$", "");
+            RecipeGeneration.Guest = false;
+            
             SceneManager.LoadSceneAsync("titlescreen");
         }
     }
@@ -142,6 +155,9 @@ public class UIAuth : MonoBehaviour {
                 _DebugLog.text = "Logged in as Guest";
                 SceneManager.LoadSceneAsync("titlescreen");
                 MainMenu.SignedInYet = true;
+                MainMenu.isGuest = true;
+                User = "Anonymous";
+                RecipeGeneration.Guest = true;
             });
     }
 
@@ -156,9 +172,9 @@ public class UIAuth : MonoBehaviour {
     public void AddUser()
     {
         string OriEmail = _Email.text;
-        string editedEmail = OriEmail.Replace(".", "").Replace("@", "").Replace("-", "").Replace("!", "")
+        editedEmail = OriEmail.Replace(".", "").Replace("@", "").Replace("-", "").Replace("!", "")
             .Replace("#", "").Replace("$", "");
         FirebaseDatabase dbRef = FirebaseDatabase.DefaultInstance;
-        dbRef.GetReference("Users").Child(editedEmail).SetValueAsync(OriEmail);
+        dbRef.GetReference("Users").Child(editedEmail).Child("Email").SetValueAsync(OriEmail);      
     }
 }

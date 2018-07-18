@@ -24,4 +24,9 @@ public class TypeOfMealPage : MonoBehaviour {
         SceneManager.LoadSceneAsync("DessertIngredients");
     }
 
+    public void BackButtonPressed()
+    {
+        SceneManager.LoadSceneAsync("titlescreen");
+    }
+
 }
