@@ -11,10 +11,22 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LoginScreen.unity
     guid: 9e8dc01cf4da307418a366cb173cc2e5
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GuestLoginScreen.unity
     guid: b55a874037907df40b4c78416f74d71a
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/LoggedInScreen.unity
     guid: ccc135eb2a915e841b16c40934b95f12
+  - enabled: 1
+    path: Assets/Scenes/TypeOfMeal.unity
+    guid: 674bbf70de367c740bb45b8421d07c4e
+  - enabled: 1
+    path: Assets/Scenes/DessertIngredients.unity
+    guid: d573439353c84fa459048084fa552277
+  - enabled: 1
+    path: Assets/Scenes/DishIngredients.unity
+    guid: 2c5dabf7e76ae124e951d66832efdf5e
+  - enabled: 1
+    path: Assets/Scenes/Results.unity
+    guid: 600cf9fed899bec4a97938a51c4b7c08
   m_configObjects: {}

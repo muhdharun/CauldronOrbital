@@ -21,10 +21,7 @@ public class Ingredientmovedown : MonoBehaviour
     {
         StartCoroutine(ExecuteAfterTime(delay));
         
-         /*if (gameObject.transform.position.y == 89.0f)
-          {
-              Destroy(gameObject);
-          }*/
+         
     }
 
     IEnumerator ExecuteAfterTime(float time)
@@ -35,12 +32,8 @@ public class Ingredientmovedown : MonoBehaviour
         transform.Rotate(Vector3.forward, spinSpeed * Time.deltaTime);
     }
 
-        /* void OnCollisionEnter(Collision col)
-         {
-             Destroy(gameObject);
-         } */
-        /*private void OnTriggerEnter(Collider other)
-        {
-            Destroy(gameObject);
-        } */
+    private void OnTriggerEnter(Collider other)
+    {
+        Destroy(gameObject);
     }
+}
