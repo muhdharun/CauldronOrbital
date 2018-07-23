@@ -31,14 +31,16 @@ public class SubmissionPage : MonoBehaviour {
 
     //Vegaetables
     int isAsparagus = 0, isBroccoli = 0, isCabbage = 0, isCauliflower = 0, isCelery = 0, isLettuce = 0, isOnion = 0,
-        isPeas = 0, isGarlic = 0, isSpinach = 0, isCarrot = 0, isGinger = 0, isTomato = 0, isPotato = 0, isCucumber = 0;
+        isPeas = 0, isGarlic = 0, isSpinach = 0, isCarrot = 0, isGinger = 0, isTomato = 0, isPotato = 0, isCucumber = 0,
+        isScallion = 0, isChili = 0;
 
     //Spreads
     int isPeanutButter = 0, isChocolateSpread = 0, isJam = 0;
 
     //Misc
     int isSalt = 0, isPepper = 0, isOil = 0, isFlour = 0, isCheese = 0, isMilk = 0, isEggs = 0,
-        isBakingPowder = 0, isSugar = 0, isVinegar = 0, isButter = 0, isCookies = 0, isIceCream = 0, isChocolate = 0;
+        isBakingPowder = 0, isSugar = 0, isVinegar = 0, isButter = 0, isCookies = 0, isIceCream = 0, isChocolate = 0,
+        isBreadCrumbs = 0, isChiliSauce = 0, isBBQSauce = 0, isKetchup = 0, isSoySauce = 0;
 
     public static List<string> UserIngredients;
 
@@ -956,7 +958,119 @@ public class SubmissionPage : MonoBehaviour {
         }
     }
 
-	public void Backbuttonpressed()
+    public void HaveScallion()
+    {
+        if (isScallion == 0)
+        {
+            isScallion++;
+            UserIngredients.Add("Scallion");
+
+        }
+        else
+        {
+            isScallion--;
+            UserIngredients.Remove("Scallion");
+
+        }
+    }
+
+    public void HaveChili()
+    {
+        if (isChili == 0)
+        {
+            isChili++;
+            UserIngredients.Add("Chili");
+            //Debug.Log("Chocolate added");
+        }
+        else
+        {
+            isChili--;
+            UserIngredients.Remove("Chili");
+            //Debug.Log("Removing Chocolate...");
+        }
+    }
+
+    public void HaveBreadCrumbs()
+    {
+        if (isBreadCrumbs == 0)
+        {
+            isBreadCrumbs++;
+            UserIngredients.Add("BreadCrumbs");
+            //Debug.Log("Chocolate added");
+        }
+        else
+        {
+            isBreadCrumbs--;
+            UserIngredients.Remove("BreadCrumbs");
+            //Debug.Log("Removing Chocolate...");
+        }
+    }
+
+    public void HaveChiliSauce()
+    {
+        if (isChiliSauce == 0)
+        {
+            isChiliSauce++;
+            UserIngredients.Add("ChiliSauce");
+
+        }
+        else
+        {
+            isChiliSauce--;
+            UserIngredients.Remove("ChiliSauce");
+
+        }
+    }
+
+    public void HaveBBQSauce()
+    {
+        if (isBBQSauce == 0)
+        {
+            isBBQSauce++;
+            UserIngredients.Add("BBQSauce");
+
+        }
+        else
+        {
+            isBBQSauce--;
+            UserIngredients.Remove("BBQSauce");
+
+        }
+    }
+
+    public void HaveKetchup()
+    {
+        if (isKetchup == 0)
+        {
+            isKetchup++;
+            UserIngredients.Add("Ketchup");
+
+        }
+        else
+        {
+            isChili--;
+            UserIngredients.Remove("Ketchup");
+
+        }
+    }
+    public void HaveSoySauce()
+    {
+        if (isSoySauce == 0)
+        {
+            isSoySauce++;
+            UserIngredients.Add("SoySauce");
+
+        }
+        else
+        {
+            isSoySauce--;
+            UserIngredients.Remove("SoySauce");
+
+        }
+    }
+
+
+    public void Backbuttonpressed()
     {
         SceneManager.LoadSceneAsync("ContributePage");
     }

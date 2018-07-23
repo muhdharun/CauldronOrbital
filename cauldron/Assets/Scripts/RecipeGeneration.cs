@@ -20,15 +20,14 @@ public class RecipeGeneration : MonoBehaviour {
     //each rec would have a tmp total_score var
     // total_score = number of ingredients to 'catch up' (the lower the better) - votes
     //top 3 shown + show more option 
-
-
+    public int index = 0;
     public DatabaseReference REF;
     public static string UserName;
 
     public static string MealType; //from TypeOfMealPage script
     //int userIngs; //number of user's ingredients (from IngredientSelection)
     bool nothing = false;
-    
+
     DependencyStatus dependencyStatus = DependencyStatus.UnavailableOther;
 
     Dictionary<string, int> Score = new Dictionary<string, int>();
@@ -66,8 +65,19 @@ public class RecipeGeneration : MonoBehaviour {
 
     public string url1;
     public string url2;
-    public string url3; 
+    public string url3;
 
+    //For the "show more" implementation
+
+    public static Text R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14; //names
+    public static Text I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14; //Ingredients
+    public static GameObject b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14; //open buttons
+    public static GameObject s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14; //save buttons
+
+    public List<Text> Titles = new List<Text>() { R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14 };
+    public List<Text> Ings = new List<Text>() { I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, I11, I12, I13, I14 };
+    public List<GameObject> Opens = new List<GameObject>(){ b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14 };
+    public List<GameObject> Saves = new List<GameObject>(){ s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14 };
     //is it from the internet?
     bool int1 = false;
     bool int2 = false;
@@ -77,6 +87,26 @@ public class RecipeGeneration : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+
+        foreach (Text title in Titles)
+        {
+
+            title.enabled = false;
+        }
+        foreach (Text ing in Ings)
+        {
+
+            ing.enabled = false;
+        }
+        foreach (GameObject open in Opens)
+        {
+            open.SetActive(false);
+        }
+        foreach (GameObject save in Saves)
+        {
+            save.SetActive(false);
+        }
+
         url1 = url2 = url3 = "nil";
         UserName = UIAuth.editedEmail;
         //pic1 = gameObject.GetComponent<RawImage>();
@@ -112,14 +142,17 @@ public class RecipeGeneration : MonoBehaviour {
 
     public void Generate_Recipes()
     {
+        //Debug.Log("executing...");
         FirebaseDatabase.DefaultInstance.GetReference(MealType).
         GetValueAsync().ContinueWith(task =>
         {
         if (task.IsCompleted)
         {
+            //Debug.Log("finishing task...");
             DataSnapshot snapshot = task.Result;
             foreach (DataSnapshot recipe in snapshot.Children)
             {
+                //Debug.Log("checking rec...");
                 string line = ""; //to concatenate all in the ingredients of each recipe                            
                 DataSnapshot type = recipe.Child("Type"); //internet or original recipe?              
                 string Type = (string)type.Value; //convert type to string   
@@ -139,10 +172,11 @@ public class RecipeGeneration : MonoBehaviour {
                         }
                         if (sc == di) continue; //that means user has no ingredient for this particular recipe
                         Score.Add(recipe.Key, sc); //recipe: score
-                        results.Add(recipe.Key, new string[] { Type, line,(string)recipe.Child("Steps").Value,"No Link"});                       
+                        results.Add(recipe.Key, new string[] { Type, line,(string)recipe.Child("Steps").Value,"No Link"});
+                        //Debug.Log("Moving on cos non internet...");
                         continue;
                     }
-
+                //Debug.Log("moving on...");
                 int data_ings = (int)recipe.Child("Ingredients").ChildrenCount; //no. ingredients for each recipe
                 int score = data_ings;
                 DataSnapshot ingredients = recipe.Child("Ingredients");
@@ -155,11 +189,15 @@ public class RecipeGeneration : MonoBehaviour {
                         score--; // this means the user has this ingredient, need to worry about 1 less ingredient
                     }
                 }
+                //Debug.Log("Proceeding to check scores...");
                 if (score == data_ings) continue; //that means user has no ingredient for this particular recipe
                 Score.Add(recipe.Key, score); //recipe: score
-                results.Add(recipe.Key, new string[]{Type,line,(string)recipe.Child("Steps").Value,(string)recipe.Child("Link").Value});              
+                results.Add(recipe.Key, new string[]{Type,line,(string)recipe.Child("Steps").Value,(string)recipe.Child("Link").Value});
+                //Debug.Log("a little while longer...");
                 }
+                //Debug.Log("almost there...");
                 if (Score.Count == 0) nothing = true;
+                //Debug.Log("standby...");
                 show_button.SetActive(true);
                 status.text = "Done!";
             }
@@ -169,12 +207,13 @@ public class RecipeGeneration : MonoBehaviour {
     public void ProcessButtonPressed()
     {
         status.text = "Processing...";
+        //Debug.Log("Processing...");
         Generate_Recipes();       
     }
  
     IEnumerator setImage(string url1, string url2, string url3)
     {
-        if (url1 != "No Link" && url1 != "nil")
+        if (url1 != "No Link" || url1 != "nil")
         {
             WWW W = new WWW(url1);
             yield return W;
@@ -182,7 +221,7 @@ public class RecipeGeneration : MonoBehaviour {
             pic1.texture = te1;
         }
         
-        if (url2 != "No Link" && url2 != "nil")
+        if (url2 != "No Link" || url2 != "nil")
         {
             WWW WW = new WWW(url2);
             yield return WW;
@@ -190,17 +229,13 @@ public class RecipeGeneration : MonoBehaviour {
             pic2.texture = te2;
         }
                
-        if (url3 != "No Link" && url3 != "nil")
+        if (url3 != "No Link" || url3 != "nil")
         {
             WWW WWW = new WWW(url3);
             yield return WWW;
             Texture2D te3 = WWW.texture;
             pic3.texture = te3;
-        }
-               
-        
-        
-        
+        }    
     }
 
     public void ShowButtonPressed()
@@ -320,6 +355,64 @@ public class RecipeGeneration : MonoBehaviour {
         status.text = "Saved " + t3.text + '!';
         string type = (int3 == true) ? "internet" : "original";
         dbRef.GetReference("Users").Child(UserName).Child("Saved").Child(t3.text).Child("Type").SetValueAsync(type);
+    }
+
+    public void ShowMoreButton()
+    {
+        Debug.Log("preparing extras...");
+        if (Score.Count < 4)
+        {
+            status.text = "No more recipes";
+        }       
+        else
+        {
+            foreach (KeyValuePair<string, int> recipe in Score.OrderBy(key => key.Value))
+            {
+                if (index > 13)
+                {
+                    break;
+                }
+                if (index < 15)
+                {
+                    Titles[index].GetComponent<Text>().text = recipe.Key;
+                    Ings[index].GetComponent<Text>().text = "Ing: " + results[recipe.Key][1];
+                    Button op = Opens[index].GetComponent<Button>();
+                    if (results[recipe.Key][0] == "internet")
+                    {
+                        op.onClick.AddListener(() => { OpenPage(results[recipe.Key][2]); });
+                    }
+                    else
+                    {
+                        store = results[recipe.Key][2];
+                        op.onClick.AddListener(() => { OpenNonIntPage(); });
+                    }
+                    Button sa = Saves[index].GetComponent<Button>();
+                    sa.onClick.AddListener(() => { SaveExtra(recipe.Key, results[recipe.Key][2], results[recipe.Key][0]); });
+                    Titles[index].enabled = true;
+                    Ings[index].enabled = true;
+                    Opens[index].SetActive(true);
+                    Saves[index].SetActive(true);
+                    index++;
+                }
+            }
+        }
+    }
+
+    public void OpenPage(string url)
+    {
+        Application.OpenURL(url);
+    }
+
+    public void OpenNonIntPage()
+    {
+        SceneManager.LoadSceneAsync("NonInternet");
+    }
+
+    public void SaveExtra(string t, string r, string ty)
+    {
+        FirebaseDatabase dbRef = FirebaseDatabase.DefaultInstance;
+        dbRef.GetReference("Users").Child(UserName).Child("Saved").Child(t).Child("Steps").SetValueAsync(r);              
+        dbRef.GetReference("Users").Child(UserName).Child("Saved").Child(t).Child("Type").SetValueAsync(ty);
     }
 
     public void ReturntotitlePage()
