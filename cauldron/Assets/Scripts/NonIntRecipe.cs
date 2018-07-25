@@ -11,11 +11,11 @@ public class NonIntRecipe : MonoBehaviour {
 
     private void Start()
     {
-        steps.text = RecipeGeneration.store;
+        steps.text = RecGen.store;
     }
 
     public void Back()
     {
-        SceneManager.LoadSceneAsync("Results");
+        SceneManager.LoadSceneAsync("CauldronAnimation");
     }
 }

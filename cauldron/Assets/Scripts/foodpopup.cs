@@ -11,7 +11,6 @@ public class foodpopup : MonoBehaviour {
     {
        
         StartCoroutine(ExecuteAfterTime(delay));
-        
     }
 
     IEnumerator ExecuteAfterTime(float time)

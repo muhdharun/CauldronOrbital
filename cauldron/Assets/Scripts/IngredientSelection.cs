@@ -39,7 +39,9 @@ public class IngredientSelection : MonoBehaviour
 
     public void FinalNextButtonPressed()
     {
-        SceneManager.LoadSceneAsync("Results");
+        //SceneManager.LoadSceneAsync("Results");
+        SceneManager.LoadSceneAsync("CauldronAnimation");
+        
     }
 
     public void BackButtonOnBasePagePressed()
