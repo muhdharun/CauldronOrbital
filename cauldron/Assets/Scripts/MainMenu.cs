@@ -12,7 +12,12 @@ public class MainMenu : MonoBehaviour {
     public Text _LoginStatus1;
     public Text _LoginStatus2;
     public Text _LoginStatus3;
- 
+    public Text isloggedin;
+
+    private void Start()
+    {
+        isloggedin.text = UIAuth.currentstate;
+    }
 
     public void Login()
     {

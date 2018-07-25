@@ -20,6 +20,7 @@ public class UIAuth : MonoBehaviour {
     Firebase.Auth.FirebaseUser _User;
     public static string User;
     public static string editedEmail;
+    public static string currentstate;
 
     // Use this for initialization
     void Start ()
@@ -105,7 +106,8 @@ public class UIAuth : MonoBehaviour {
             _DebugLog.text = "Firebase : User Creation completed.\n" + "Welcome " + _Email.text;
             MainMenu.SignedInYet = true;
             MainMenu.isGuest = false;
-            User = _Email.text;           
+            User = _Email.text;
+            currentstate = "Logged in with acc";
             SceneManager.LoadSceneAsync("titlescreen");
         }
     }
@@ -139,7 +141,7 @@ public class UIAuth : MonoBehaviour {
             editedEmail = OriEmail.Replace(".", "").Replace("@", "").Replace("-", "").Replace("!", "")
                 .Replace("#", "").Replace("$", "");
             RecipeGeneration.Guest = false;
-            
+            currentstate= "Logged in with acc";
             SceneManager.LoadSceneAsync("titlescreen");
         }
     }
@@ -152,21 +154,23 @@ public class UIAuth : MonoBehaviour {
             ContinueWith((obj) =>
             {
                 Debug.Log("Current user is" + auth.CurrentUser);
-                _DebugLog.text = "Logged in as Guest";
+                _DebugLog.text = "Logged in as Guest";              
                 SceneManager.LoadSceneAsync("titlescreen");
                 MainMenu.SignedInYet = true;
                 MainMenu.isGuest = true;
                 User = "Anonymous";
+                currentstate = "Logged in as Guest";
                 RecipeGeneration.Guest = true;
             });
     }
 
     public void SignOut()
     {
-        
+        currentstate = "";
         _Auth.SignOut();
         if (_User == null) _DebugLog.text = "Signed out successfully";
         MainMenu.SignedInYet = false;
+
     }
 
     public void AddUser()
