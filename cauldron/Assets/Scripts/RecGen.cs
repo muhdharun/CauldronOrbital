@@ -1,6 +1,7 @@
 ﻿using Firebase;
 using Firebase.Database;
 using Firebase.Unity.Editor;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,7 @@ public class RecGen : MonoBehaviour {
     // index 0: Recipe_type,1: Ingredients 2: Steps/Website 3: Picture link  
 
     public static bool Guest = false;
+    public static string dummy;
 
     public GameObject ShowMore;
 
@@ -35,6 +37,7 @@ public class RecGen : MonoBehaviour {
     public static string store;
 
     public Text NoRec;
+    public Text total_score;
 
     public Text status1;
     public Text status2;
@@ -257,6 +260,7 @@ public class RecGen : MonoBehaviour {
 
     public void ShowButtonPressed()
     {
+        total_score.text = (Score.Count > 17) ? "Total recipes generated: " + 17.ToString() + "(Max)" : "Total recipes generated: " + Score.Count.ToString();
         Debug.Log("executing showbuttonpressed...");
         if (Score.Count == 2) card2.enabled = false;
         if (Score.Count == 1)
@@ -367,30 +371,54 @@ public class RecGen : MonoBehaviour {
 
     public void Save_one()
     {
-        FirebaseDatabase dbRef = FirebaseDatabase.DefaultInstance;
-        dbRef.GetReference("Users").Child(UserName).Child("Saved").Child(t1.text).Child("Steps").SetValueAsync(r1);
-        status1.text = "Saved!";
-        string type = (int1 == true) ? "internet" : "original";
-        dbRef.GetReference("Users").Child(UserName).Child("Saved").Child(t1.text).Child("Type").SetValueAsync(type);
+        if (UIAuth.User == "Anonymous")
+        {
+            status1.text = "Please create acc";
+        }
+        else
+        {
+            FirebaseDatabase dbRef = FirebaseDatabase.DefaultInstance;
+            dbRef.GetReference("Users").Child(UserName).Child("Saved").Child(t1.text).Child("Steps").SetValueAsync(r1);
+            status1.text = "Saved!";
+            string type = (int1 == true) ? "internet" : "original";
+            dbRef.GetReference("Users").Child(UserName).Child("Saved").Child(t1.text).Child("Type").SetValueAsync(type);
+        }
+        
 
     }
 
     public void Save_two()
     {
-        FirebaseDatabase dbRef = FirebaseDatabase.DefaultInstance;
-        dbRef.GetReference("Users").Child(UserName).Child("Saved").Child(t2.text).Child("Steps").SetValueAsync(r2);
-        status2.text = "Saved!";
-        string type = (int2 == true) ? "internet" : "original";
-        dbRef.GetReference("Users").Child(UserName).Child("Saved").Child(t2.text).Child("Type").SetValueAsync(type);
+        if (UIAuth.User == "Anonymous")
+        {
+            status2.text = "Please create acc";
+        }
+        else
+        {
+            FirebaseDatabase dbRef = FirebaseDatabase.DefaultInstance;
+            dbRef.GetReference("Users").Child(UserName).Child("Saved").Child(t2.text).Child("Steps").SetValueAsync(r2);
+            status2.text = "Saved!";
+            string type = (int2 == true) ? "internet" : "original";
+            dbRef.GetReference("Users").Child(UserName).Child("Saved").Child(t2.text).Child("Type").SetValueAsync(type);
+        }
+        
     }
 
     public void Save_three()
     {
-        FirebaseDatabase dbRef = FirebaseDatabase.DefaultInstance;
-        dbRef.GetReference("Users").Child(UserName).Child("Saved").Child(t3.text).Child("Steps").SetValueAsync(r3);
-        status3.text = "Saved!";
-        string type = (int3 == true) ? "internet" : "original";
-        dbRef.GetReference("Users").Child(UserName).Child("Saved").Child(t3.text).Child("Type").SetValueAsync(type);
+        if (UIAuth.User == "Anonymous")
+        {
+            status3.text = "Please create acc";
+        }
+        else
+        {
+            FirebaseDatabase dbRef = FirebaseDatabase.DefaultInstance;
+            dbRef.GetReference("Users").Child(UserName).Child("Saved").Child(t3.text).Child("Steps").SetValueAsync(r3);
+            status3.text = "Saved!";
+            string type = (int3 == true) ? "internet" : "original";
+            dbRef.GetReference("Users").Child(UserName).Child("Saved").Child(t3.text).Child("Type").SetValueAsync(type);
+        }
+        
     }
 
     public void ShowMoreButton()
@@ -446,9 +474,17 @@ public class RecGen : MonoBehaviour {
 
     public void SaveExtra(string t, string r, string ty)
     {
-        FirebaseDatabase dbRef = FirebaseDatabase.DefaultInstance;
-        dbRef.GetReference("Users").Child(UserName).Child("Saved").Child(t).Child("Steps").SetValueAsync(r);
-        dbRef.GetReference("Users").Child(UserName).Child("Saved").Child(t).Child("Type").SetValueAsync(ty);
+        if(UIAuth.User == "Anonymous")
+        {
+            dummy = "";
+        }
+        else
+        {
+            FirebaseDatabase dbRef = FirebaseDatabase.DefaultInstance;
+            dbRef.GetReference("Users").Child(UserName).Child("Saved").Child(t).Child("Steps").SetValueAsync(r);
+            dbRef.GetReference("Users").Child(UserName).Child("Saved").Child(t).Child("Type").SetValueAsync(ty);
+        }
+        
     }
 
     public void ReturntotitlePage()
