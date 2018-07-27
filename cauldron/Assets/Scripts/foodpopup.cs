@@ -2,11 +2,64 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class foodpopup : MonoBehaviour {
+public class foodpopup : MonoBehaviour
+{
 
     public float delay;
 
-    private void Update()
+    void Start()
+    {
+
+        gameObject.SetActive(false);
+        Invoke("Activate", delay);
+    }
+
+    void Activate()
+    {
+        gameObject.SetActive(true);
+    }
+}
+
+
+    /*private void Start()
+    {
+        yield WaitforSeconds(3);
+        gameObject.SetActive(false);
+     
+
+    }
+
+     private void Update()
+     {
+         delay--;
+
+         if (delay < 0)
+         {
+             gameObject.SetActive(true);
+         }
+
+
+     }
+    
+
+
+    /*IEnumerator ExecuteAfterTime(float time)
+    {
+
+        yield return new WaitForSeconds(time);
+
+        gameObject.SetActive(false);
+
+        Debug.Log("hello");
+
+    }
+    */
+
+   
+   
+
+
+    /*private void Update()
 
     {
        
@@ -35,6 +88,5 @@ public class foodpopup : MonoBehaviour {
         
     }
     */
-
-}
+   
 

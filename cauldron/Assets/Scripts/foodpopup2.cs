@@ -5,30 +5,27 @@ using UnityEngine;
 public class foodpopup2 : MonoBehaviour
 {
 
-    private void Update()
+    public float delay;
+    public float stop;
 
+
+    void Start()
     {
-        int rotatospeedo = 600;
-        float step = rotatospeedo * Time.deltaTime;
-        //transform.Rotate(Vector3.up, 250 * Time.deltaTime);
-        Vector3 Targetposition = new Vector3(319f, 775f, 0);
-        transform.position = Vector3.MoveTowards(transform.position, Targetposition, step);
-        Vector3 myposition = transform.position;
-        if (myposition.y == 900)
-        {
-            rotatospeedo = 0;
-        }
-        StartCoroutine(ExecuteAfterTime(5));
+
+        gameObject.SetActive(false);
+        Invoke("Activate", delay);
+        Invoke("Pause", stop);
     }
 
-    IEnumerator ExecuteAfterTime(float time)
+    void Activate()
     {
-        yield return new WaitForSeconds(time);
-        transform.Rotate(Vector3.up, 0 * Time.deltaTime);
-        // transform.position = new Vector3(0, 0, 0);
+        gameObject.SetActive(true);
+    }
 
+    void Pause()
+    {
+        {
+            Time.timeScale = 0f;
+        }
     }
 }
-
-
-
