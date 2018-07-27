@@ -11,6 +11,7 @@ public class foodpopup2 : MonoBehaviour
 
     void Start()
     {
+        Time.timeScale = 1f;
 
         gameObject.SetActive(false);
         Invoke("Activate", delay);
