@@ -162,10 +162,9 @@ public class RecGen : MonoBehaviour {
             if (task.IsCompleted)
             {
                 //Debug.Log("finishing task...");
-                DataSnapshot snapshot = task.Result;
+                DataSnapshot snapshot = task.Result;                
                 foreach (DataSnapshot recipe in snapshot.Children)
-                {
-                    //Debug.Log("checking rec...");
+                {                     
                     string line = ""; //to concatenate all in the ingredients of each recipe                            
                     DataSnapshot type = recipe.Child("Type"); //internet or original recipe?              
                     string Type = (string)type.Value; //convert type to string   
@@ -189,7 +188,7 @@ public class RecGen : MonoBehaviour {
                         //Debug.Log("Moving on cos non internet...");
                         continue;
                     }
-                    //Debug.Log("moving on...");
+                    
                     int data_ings = (int)recipe.Child("Ingredients").ChildrenCount; //no. ingredients for each recipe
                     int score = data_ings;
                     DataSnapshot ingredients = recipe.Child("Ingredients");
@@ -206,17 +205,49 @@ public class RecGen : MonoBehaviour {
                     if (score == data_ings) continue; //that means user has no ingredient for this particular recipe
                     Score.Add(recipe.Key, score); //recipe: score
                     results.Add(recipe.Key, new string[] { Type, line, (string)recipe.Child("Steps").Value, (string)recipe.Child("Link").Value });
-                    //Debug.Log("a little while longer...");
+                    
                 }
-                //Debug.Log("almost there...");
+                
                 if (Score.Count == 0) nothing = true;
                 Debug.Log(Score.Count);
-                //Debug.Log("standby...");
-                ShowButtonPressed();
+                
+                
                 
             }
         });
-        
+        FirebaseDatabase.DefaultInstance.GetReference("UserContributions").Child(MealType).
+        GetValueAsync().ContinueWith(task =>
+        {
+            if (task.IsCompleted)
+            {
+                DataSnapshot snapshot = task.Result;
+                foreach (DataSnapshot recipe in snapshot.Children)
+                {
+                    string line = ""; //to concatenate all in the ingredients of each recipe                            
+                    DataSnapshot type = recipe.Child("Type"); //internet or original recipe?              
+                    string Type = (string)type.Value; //convert type to string                               
+                    DataSnapshot ings = recipe.Child("Ingredients");
+                    line = (string)ings.Value;
+                    string[] s = ((string)ings.Value).Split(',');
+                    int di = s.Length; //no. ingredients for each recipe
+                    int sc = di;
+                    foreach (string ingredient in s)
+                    {
+                        if (IngredientSelection.UserIngredients.Contains(ingredient))
+                        {
+                            sc--; // this means the user has this ingredient, need to worry about 1 less ingredient
+                        }
+                    }
+                    if (sc == di) continue; //that means user has no ingredient for this particular recipe
+                    Score.Add(recipe.Key, sc); //recipe: score
+                    results.Add(recipe.Key, new string[] { Type, line, (string)recipe.Child("Steps").Value, "No Link" });
+                    continue;
+
+                }
+                ShowButtonPressed();
+            }
+            
+        });
     }
 
     public void ProcessButtonPressed()
@@ -282,11 +313,9 @@ public class RecGen : MonoBehaviour {
             
             return;
         }
-        Debug.Log("did this even start lol");
-        Debug.Log(Score.Count);
         foreach (KeyValuePair<string, int> recipe in Score.OrderBy(key => key.Value))
         {
-            Debug.Log(i);
+            
             if (i == 3) break;
             if (i == 0)
             {
@@ -423,6 +452,7 @@ public class RecGen : MonoBehaviour {
 
     public void ShowMoreButton()
     {
+        int i = 0;
         Debug.Log("preparing extras...");
         if (Score.Count < 4)
         {
@@ -432,6 +462,11 @@ public class RecGen : MonoBehaviour {
         {
             foreach (KeyValuePair<string, int> recipe in Score.OrderBy(key => key.Value))
             {
+                if (i < 3)
+                {
+                    i++;
+                    continue;
+                }
                 if (index > 13)
                 {
                     break;

@@ -1079,10 +1079,11 @@ public class SubmissionPage : MonoBehaviour {
     {
                     
         FirebaseDatabase dbRef = FirebaseDatabase.DefaultInstance;
-        dbRef.GetReference(MealType).Child(NameOfMeal.text).Child("Steps").SetValueAsync(Steps.text);
-        dbRef.GetReference(MealType).Child(NameOfMeal.text).Child("Type").SetValueAsync(Contributor);
-        dbRef.GetReference(MealType).Child(NameOfMeal.text).Child("votes").SetValueAsync(0);
-        dbRef.GetReference(MealType).Child(NameOfMeal.text).Child("Ingredients").SetValueAsync(string.Join(",", UserIngredients.ToArray()));
+        dbRef.GetReference("UserContributions").Child(MealType).Child(NameOfMeal.text).Child("Steps").SetValueAsync(Steps.text);
+        dbRef.GetReference("UserContributions").Child(MealType).Child(NameOfMeal.text).Child("Type").SetValueAsync(Contributor);
+        dbRef.GetReference("UserContributions").Child(MealType).Child(NameOfMeal.text).Child("votes").SetValueAsync(0);
+        dbRef.GetReference("UserContributions").Child(MealType).Child(NameOfMeal.text).Child("Status").SetValueAsync("pending");
+        dbRef.GetReference("UserContributions").Child(MealType).Child(NameOfMeal.text).Child("Ingredients").SetValueAsync(string.Join(",", UserIngredients.ToArray()));
         SceneManager.LoadSceneAsync("titlescreen");
 
     }
