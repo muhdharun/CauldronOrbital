@@ -223,6 +223,10 @@ public class RecGen : MonoBehaviour {
                 DataSnapshot snapshot = task.Result;
                 foreach (DataSnapshot recipe in snapshot.Children)
                 {
+                    if ((string)recipe.Child("Status").Value == "pending")
+                    {
+                        continue;
+                    }
                     string line = ""; //to concatenate all in the ingredients of each recipe                            
                     DataSnapshot type = recipe.Child("Type"); //internet or original recipe?              
                     string Type = (string)type.Value; //convert type to string                               
